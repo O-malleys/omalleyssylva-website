@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O'Malley's Menu · Sylva, NC</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #1a3d2b;
+  --green-mid: #2a5c42;
+  --gold: #b8960c;
+  --gold-light: #d4aa20;
+  --gold-pale: #e8d080;
+  --parchment: #f5f0e3;
+  --parchment-dark: #ede5cc;
+  --brown: #4a3520;
+  --cream: #faf6ec;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0d1f15;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: 'EB Garamond', Georgia, serif;
+  padding: 20px;
+}
+
+/* ── OUTER FRAME ── */
+.frame-outer {
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  background: var(--parchment);
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 4px #0d1f15, 0 0 0 6px var(--gold), inset 0 0 40px rgba(26,61,43,0.08);
+}
+
+/* Corner medallions */
+.frame-outer::before, .frame-outer::after {
+  content: '◈';
+  position: absolute;
+  color: var(--gold);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.frame-outer::before { top: -0.75rem; left: -0.75rem; }
+.frame-outer::after  { top: -0.75rem; right: -0.75rem; }
+
+.corner-bl, .corner-br {
+  position: absolute;
+  color: var(--gold);
+  font-size: 1.4rem;
+  line-height: 1;
+  z-index: 10;
+}
+.corner-bl { bottom: -0.75rem; left: -0.75rem; }
+.corner-br { bottom: -0.75rem; right: -0.75rem; }
+
+.frame-inner {
+  border: 1px solid rgba(184,150,12,0.4);
+  margin: 8px;
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── HEADER ── */
+.menu-header {
+  text-align: center;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid rgba(184,150,12,0.3);
+  opacity: 0;
+  animation: headerReveal 1.2s ease 0.3s forwards;
+}
+
+@keyframes headerReveal {
+  0%   { opacity: 0; clip-path: inset(0 50% 0 50%); }
+  100% { opacity: 1; clip-path: inset(0 0% 0 0%); }
+}
+
+.menu-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.menu-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.55rem, 1.5vw, 0.72rem);
+  letter-spacing: 0.35em;
+  color: var(--green-mid);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.header-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.header-divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+.header-divider-ornament { color: var(--gold); font-size: 0.65rem; letter-spacing: 0.3em; white-space: nowrap; }
+
+/* ── NAV TABS ── */
+.menu-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  padding: 0.8rem 1rem;
+  background: rgba(26,61,43,0.04);
+  border-bottom: 1px solid rgba(184,150,12,0.25);
+  opacity: 0;
+  animation: fadeIn 0.8s ease 1.4s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.nav-tab {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: none;
+  border-radius: 0;
+}
+.nav-tab:hover { border-color: var(--gold); color: var(--gold); }
+.nav-tab.active { border-color: var(--gold); background: var(--green); color: var(--gold-light); }
+
+/* ── CONTENT VIEWPORT ── */
+.menu-viewport {
+  padding: 1.5rem 2rem 2rem;
+  min-height: 500px;
+  position: relative;
+}
+
+/* Watermark */
+.menu-viewport::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(184,150,12,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── CONTENT SECTIONS ── */
+.menu-section {
+  display: none;
+  opacity: 0;
+}
+.menu-section.active {
+  display: block;
+  animation: sectionFade 0.5s ease forwards;
+}
+.menu-section.reveal-active {
+  display: block;
+  animation: sectionReveal 0.8s ease forwards;
+}
+
+@keyframes sectionFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sectionReveal {
+  0%   { opacity: 0; clip-path: inset(0 50% 0 50%); }
+  100% { opacity: 1; clip-path: inset(0 0% 0 0%); }
+}
+
+/* ── SECTION HEADERS ── */
+.section-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--green);
+  text-align: center;
+  margin-bottom: 0.3rem;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.5rem auto 1.5rem;
+  max-width: 300px;
+}
+.section-divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+.section-divider-dot { color: var(--gold); font-size: 0.5rem; }
+
+/* ── MENU ITEMS ── */
+.menu-items { }
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px dotted rgba(184,150,12,0.2);
+}
+.menu-item:last-child { border-bottom: none; }
+
+.item-left { flex: 1; }
+
+.item-name {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--green);
+  margin-bottom: 0.15rem;
+}
+
+.item-name.signature {
+  font-style: italic;
+  color: var(--green);
+}
+
+.item-desc {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.88rem;
+  color: var(--brown);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.item-price {
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  color: var(--green);
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+
+.signature-badge {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  margin: 0.3rem 0 1rem;
+}
+
+/* ── SIGNATURE ITEM REVEAL ── */
+.sig-item {
+  animation: none;
+}
+.sig-item.in-view {
+  animation: sigReveal 1s ease forwards;
+}
+@keyframes sigReveal {
+  0%   { opacity: 0; clip-path: inset(0 50% 0 50%); }
+  100% { opacity: 1; clip-path: inset(0 0% 0 0%); }
+}
+
+/* ── CALLOUT BOXES ── */
+.callout {
+  background: rgba(26,61,43,0.05);
+  border: 1px solid rgba(184,150,12,0.3);
+  padding: 0.6rem 1rem;
+  margin: 0.5rem 0 1.2rem;
+  text-align: center;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.88rem;
+  color: var(--brown);
+  font-style: italic;
+}
+
+/* ── WINGS GRID ── */
+.wings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  margin: 1rem 0;
+}
+.wing-cell {
+  background: var(--cream);
+  padding: 0.8rem;
+  text-align: center;
+}
+.wing-count {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: var(--green);
+  margin-bottom: 0.3rem;
+}
+.wing-price {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.3rem;
+  color: var(--green);
+  font-weight: 500;
+}
+.wing-full {
+  grid-column: 1 / -1;
+}
+
+/* Sauce columns */
+.sauce-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.sauce-col-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.sauce-list {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  color: var(--brown);
+  line-height: 1.8;
+}
+.sauce-dry {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* ── TWO COL LAYOUT ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+@media (max-width: 600px) {
+  .two-col { grid-template-columns: 1fr; gap: 1rem; }
+  .menu-viewport { padding: 1rem; }
+  .wings-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── FOOTER ── */
+.menu-footer {
+  text-align: center;
+  padding: 1rem 2rem 1.5rem;
+  border-top: 1px solid rgba(184,150,12,0.3);
+  opacity: 0;
+  animation: fadeIn 0.8s ease 1.8s forwards;
+}
+.footer-autograt {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--brown);
+  margin-bottom: 0.5rem;
+}
+.footer-note {
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<div class="frame-outer">
+  <span class="corner-bl">◈</span>
+  <span class="corner-br">◈</span>
+
+  <div class="frame-inner">
+
+    <!-- HEADER -->
+    <div class="menu-header">
+      <h1 class="menu-title">O'Malley's</h1>
+      <p class="menu-subtitle">Pub &nbsp;✦&nbsp; Grill &nbsp;✦&nbsp; Sylva, North Carolina &nbsp;✦&nbsp; Est. 1995</p>
+      <div class="header-divider">
+        <div class="header-divider-line"></div>
+        <span class="header-divider-ornament">❧ &nbsp; Est. 1995 &nbsp; ❧</span>
+        <div class="header-divider-line"></div>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="menu-nav">
+      <button class="nav-tab active" onclick="showSection('appetizers', 'reveal')">Appetizers</button>
+      <button class="nav-tab" onclick="showSection('sandwiches', 'fade')">Sandwiches</button>
+      <button class="nav-tab" onclick="showSection('entrees', 'fade')">Entrées</button>
+      <button class="nav-tab" onclick="showSection('wings', 'fade')">Wings</button>
+      <button class="nav-tab" onclick="showSection('burgers', 'fade')">Burgers</button>
+      <button class="nav-tab" onclick="showSection('salads', 'fade')">Salads & Sides</button>
+      <button class="nav-tab" onclick="showSection('dessert', 'reveal')">Dessert</button>
+    </nav>
+
+    <!-- VIEWPORT -->
+    <div class="menu-viewport">
+
+      <!-- APPETIZERS -->
+      <div id="appetizers" class="menu-section reveal-active">
+        <h2 class="section-title">Appetizers</h2>
+        <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-dot">◎</span><div class="section-divider-line"></div></div>
+        <div class="menu-items">
+          <div class="menu-item"><div class="item-left"><div class="item-name">Spinach Dip & Pita Chips</div></div><div class="item-price">12</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Mac-N-Cheese Bites</div></div><div class="item-price">12</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Fried Pickles</div></div><div class="item-price">12</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Fried Mushrooms</div></div><div class="item-price">12</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Pretzel Bites & Beer Cheese</div></div><div class="item-price">12</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Mozzarella Cheese Sticks</div></div><div class="item-price">12</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Potato Skins</div></div><div class="item-price">12</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Santa Fe Chicken Egg Rolls</div></div><div class="item-price">13</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Irish Soda Bread</div></div><div class="item-price">9</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Quesadilla</div></div><div class="item-price">12</div></div>
+          <!-- SIGNATURE -->
+          <div class="sig-item" id="sig-pierogi-app">
+            <div class="menu-item" style="border-bottom:none;">
+              <div class="item-left">
+                <div class="item-name signature">✦ Pier-O-gie's ✦</div>
+                <div class="item-desc">Potato cheddar, golden fried, finished in butter. Choose your dipping sauce.</div>
+              </div>
+              <div class="item-price">9</div>
+            </div>
+            <div class="signature-badge">★ &nbsp; S I G N A T U R E &nbsp; ★</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SANDWICHES -->
+      <div id="sandwiches" class="menu-section">
+        <h2 class="section-title">Sandwiches</h2>
+        <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-dot">◎</span><div class="section-divider-line"></div></div>
+        <div class="callout">All sandwiches served with a side of Pier-O-gie's</div>
+        <div class="menu-items">
+          <div class="menu-item"><div class="item-left"><div class="item-name">Reuben or Rachel</div><div class="item-desc">Corned beef or turkey, toasted rye, Swiss, sauerkraut, Thousand Island</div></div><div class="item-price">12.99</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">The Saucy Bird</div><div class="item-desc">Hand-breaded fried chicken in favorite wing sauce, lettuce, tomato, onion & pickles</div></div><div class="item-price">12.99</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">BLT</div><div class="item-desc">Bacon, lettuce & tomato on toasted sourdough</div></div><div class="item-price">12.99</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Philly Cheese Steak</div><div class="item-desc">Shaved steak, sautéed peppers & onions, provolone</div></div><div class="item-price">13.99</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Catamount Club</div><div class="item-desc">Ham, turkey, American & bacon on sourdough, lettuce & tomato</div></div><div class="item-price">12.99</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">French Dip</div><div class="item-desc">Shaved ribeye & Swiss on hoagie, with fresh au jus gravy</div></div><div class="item-price">13.99</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Hot Ham & Swiss</div><div class="item-desc">Ham & Swiss on grilled sourdough</div></div><div class="item-price">12.99</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Fish Po' Boy</div><div class="item-desc">Fried cod on toasted hoagie, lettuce & tomato</div></div><div class="item-price">12.99</div></div>
+        </div>
+        <div class="callout">✦ Add caramelized onions & mushrooms .75 each ✦</div>
+      </div>
+
+      <!-- ENTRÉES -->
+      <div id="entrees" class="menu-section">
+        <h2 class="section-title">Entrées</h2>
+        <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-dot">◎</span><div class="section-divider-line"></div></div>
+        <div class="callout">All entrées include a choice of Soda Bread or House Salad</div>
+        <div class="menu-items">
+          <div class="menu-item"><div class="item-left"><div class="item-name">Ribeye Steak 12oz</div><div class="item-desc">12 oz. Halperns' Angus ribeye cooked to order, served with choice of side and Soda Bread</div></div><div class="item-price">32.00</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Ribeye Steak 16oz</div><div class="item-desc">16 oz. Halperns' Angus ribeye cooked to order, served with additional choice of side<br><em>✦ Add caramelized onions & mushrooms .75 ea</em></div></div><div class="item-price">43.00</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Shepherd's Pie</div><div class="item-desc">Stewed peas, carrots, corn & beef topped with mashed potatoes & melted cheese</div></div><div class="item-price">12.99</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Fish N' Chips</div><div class="item-desc">Beer battered white fish, fries, coleslaw & tartar sauce</div></div><div class="item-price">13.99</div></div>
+          <div class="menu-item"><div class="item-left"><div class="item-name">Chicken Alfredo</div><div class="item-desc">Creamy pasta, choice of fried or grilled chicken</div></div><div class="item-price">15.99</div></div>
+          <!-- SIGNATURE -->
+          <div class="sig-item" id="sig-bangers">
+            <div class="menu-item" style="border-bottom:none;">
+              <div class="item-left">
+                <div class="item-name signature">✦ Bangers & Pier-O-gie's ✦</div>
+                <div class="item-desc">Irish sausage and Pier-O-gie's topped with our creamy artichoke mushroom sauce</div>
+              </div>
+              <div class="item-price">15.99</div>
+            </div>
+            <div class="signature-badge">★ &nbsp; S I G N A T U R E &nbsp; ★</div>
+          </div>
+        </div>
+        <div class="callout" style="font-size:0.78rem;">* Consuming raw or undercooked meats, poultry, seafood, shellfish or eggs may increase your risk of foodborne illness.</div>
+      </div>
+
+      <!-- WINGS -->
+      <div id="wings" class="menu-section">
+        <h2 class="section-title">Wings</h2>
+        <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-dot">◎</span><div class="section-divider-line"></div></div>
+        <div class="callout">Traditional or Boneless · Your choice · Includes Ranch or Blue Cheese · Extras .75</div>
+        <div class="wings-grid">
+          <div class="wing-cell"><div class="wing-count">6 Wings</div><div class="wing-price">9.49</div></div>
+          <div class="wing-cell"><div class="wing-count">10 Wings</div><div class="wing-price">14.99</div></div>
+          <div class="wing-cell"><div class="wing-count">15 Wings</div><div class="wing-price">19.99</div></div>
+          <div class="wing-cell"><div class="wing-count">20 Wings</div><div class="wing-price">23.49</div></div>
+          <div class="wing-cell wing-full"><div class="wing-count">30 Wings</div><div class="wing-price">36.99</div></div>
+        </div>
+        <div class="sauce-grid">
+          <div>
+            <div class="sauce-col-title">Hot Sauces</div>
+            <div class="sauce-list">Darrells Extra Hot<br>Fast Eddy's Hot<br>Tongue Thai BBQ<br>Hot Garlic · Hot<br>Hot Honey BBQ<br>Ringing Silver<br>Dragon Heart</div>
+          </div>
+          <div>
+            <div class="sauce-col-title">Mild Sauces</div>
+            <div class="sauce-list">Mild Garlic · Mild<br>Honey Mustard<br>Teriyaki<br>Honey BBQ<br>Honey Mustard<br>Garlic Parmesan</div>
+          </div>
+          <div class="sauce-dry">
+            <div class="sauce-col-title">Dry Rubs</div>
+            <div class="sauce-list">Blackened · Lemon Pepper · Dry Ranch</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BURGERS -->
+      <div id="burgers" class="menu-section">
+        <h2 class="section-title">Smash Burgers & Hotdogs</h2>
+        <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-dot">◎</span><div class="section-divider-line"></div></div>
+        <div class="callout">Two smash patties per burger · All burgers served with lettuce, tomato, onion, pickles and a side of Pier-O-gie's</div>
+        <div class="two-col">
+          <div class="menu-items">
+            <div class="menu-item"><div class="item-left"><div class="item-name">Classic Smash</div><div class="item-desc">Two smash patties, American cheese</div></div><div class="item-price">14.99</div></div>
+            <div class="menu-item"><div class="item-left"><div class="item-name">Chipotle Smash</div><div class="item-desc">Swiss & American, housemade chipotle aioli</div></div><div class="item-price">15.99</div></div>
+            <div class="menu-item"><div class="item-left"><div class="item-name">Irish Farm Smash</div><div class="item-desc">Sharp cheddar, bacon, fresh egg your way</div></div><div class="item-price">17.99</div></div>
+            <div class="menu-item"><div class="item-left"><div class="item-name">Good O' Dawgs</div><div class="item-desc">Two all beef franks on toasted buns, American cheese</div></div><div class="item-price">12.99</div></div>
+          </div>
+          <div class="menu-items">
+            <div class="menu-item"><div class="item-left"><div class="item-name">Smoky Mountain Smash</div><div class="item-desc">Smoked Gruyère, bacon & BBQ sauce with a crispy onion ring</div></div><div class="item-price">17.99</div></div>
+            <div class="menu-item"><div class="item-left"><div class="item-name">Habanero & Jalapeño</div><div class="item-desc">Habanero cheese, sautéed onions & jalapeños</div></div><div class="item-price">15.99</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SALADS & SIDES -->
+      <div id="salads" class="menu-section">
+        <div class="two-col">
+          <div>
+            <h2 class="section-title">Salads</h2>
+            <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-dot">◎</span><div class="section-divider-line"></div></div>
+            <div class="menu-items">
+              <div class="menu-item"><div class="item-left"><div class="item-name">Garden Salad</div><div class="item-desc">Fresh greens, tomato, cucumber, shredded cheese, croutons, choice of dressing</div></div><div class="item-price">9</div></div>
+              <div class="menu-item"><div class="item-left"><div class="item-name">Chef Salad</div><div class="item-desc">Fresh greens, turkey, corned beef, boiled eggs, bacon, tomato, shredded cheese, croutons</div></div><div class="item-price">12</div></div>
+              <div class="menu-item"><div class="item-left"><div class="item-name">Caesar Salad</div><div class="item-desc">Fresh romaine, parmesan, croutons, house Caesar dressing</div></div><div class="item-price">9</div></div>
+              <div class="menu-item"><div class="item-left"><div class="item-name">Small Caesar</div></div><div class="item-price">6</div></div>
+              <div class="menu-item"><div class="item-left"><div class="item-name">Small Garden</div></div><div class="item-price">6</div></div>
+            </div>
+            <div class="callout" style="font-size:0.8rem;text-align:left;">Dressings: Ranch · Blue Cheese · Thousand Island · Caesar · Honey Mustard · Italian · Balsamic Vinaigrette<br><br>Add a Protein: Chicken 6 · Steak 8 · Fish 7</div>
+            <div class="callout" style="margin-top:0.5rem;">Soup of the Day<br>Cup 5.50 · Bowl 6.50</div>
+          </div>
+          <div>
+            <h2 class="section-title">Sides</h2>
+            <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-dot">◎</span><div class="section-divider-line"></div></div>
+            <div class="menu-items">
+              <div class="menu-item"><div class="item-left"><div class="item-name">Fries</div></div></div>
+              <div class="menu-item"><div class="item-left"><div class="item-name">Baked Potato</div></div></div>
+              <div class="menu-item"><div class="item-left"><div class="item-name">Mashed Potatoes</div></div></div>
+              <div class="menu-item"><div class="item-left"><div class="item-name">Onion Rings</div></div></div>
+              <div class="menu-item"><div class="item-left"><div class="item-name">Ranch Pasta Salad</div></div></div>
+              <div class="menu-item"><div class="item-left"><div class="item-name">Green Beans</div></div></div>
+              <div class="menu-item"><div class="item-left"><div class="item-name">Side Salad</div></div></div>
+              <div class="menu-item"><div class="item-left"><div class="item-name">Mac & Cheese</div></div></div>
+            </div>
+            <!-- SIGNATURE SIDE -->
+            <div class="sig-item" id="sig-pierogi-side">
+              <div class="menu-item" style="border-bottom:none;">
+                <div class="item-left">
+                  <div class="item-name signature">✦ Pier-O-gie's ✦</div>
+                  <div class="item-desc">Our signature side</div>
+                </div>
+              </div>
+              <div class="signature-badge">★ &nbsp; S I G N A T U R E &nbsp; ★</div>
+            </div>
+            <div class="callout"><strong>All sides $6</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESSERT -->
+      <div id="dessert" class="menu-section">
+        <h2 class="section-title">Dessert</h2>
+        <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-dot">◎</span><div class="section-divider-line"></div></div>
+        <div style="max-width:400px;margin:0 auto;">
+          <div class="menu-item">
+            <div class="item-left">
+              <div class="item-name signature" style="font-size:1.2rem;">The Cookie</div>
+              <div class="item-desc">Chocolate chip cookie square, ice cream & white chocolate icing</div>
+            </div>
+            <div class="item-price">9.99</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-left">
+              <div class="item-name signature" style="font-size:1.2rem;">Deep Fried Cinnamon Roll</div>
+              <div class="item-desc">Two fried cinnamon rolls in cinnamon sugar, served with ice cream & plenty of icing</div>
+            </div>
+            <div class="item-price">9.99</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end viewport -->
+
+    <!-- FOOTER -->
+    <div class="menu-footer">
+      <p class="footer-autograt">✦ 18% gratuity added for parties of 6 or more ✦</p>
+      <p class="footer-note">83 Asheville Hwy · Sylva, NC 28779 · (828) 631-0554 · Open Daily 11am–2am</p>
+    </div>
+
+  </div><!-- end frame-inner -->
+</div><!-- end frame-outer -->
+
+<script>
+let currentSection = 'appetizers';
+
+function showSection(id, transition) {
+  const current = document.getElementById(currentSection);
+  const next = document.getElementById(id);
+
+  // Update nav
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+
+  if (id === currentSection) return;
+
+  // Fade out current
+  current.style.opacity = '0';
+  current.style.transition = 'opacity 0.3s ease';
+
+  setTimeout(() => {
+    current.classList.remove('active', 'reveal-active');
+    current.style.opacity = '';
+    current.style.transition = '';
+
+    if (transition === 'reveal') {
+      next.classList.add('reveal-active');
+    } else {
+      next.classList.add('active');
+    }
+
+    currentSection = id;
+
+    // Trigger signature reveals
+    setTimeout(() => triggerSigReveals(), 200);
+  }, 300);
+}
+
+function triggerSigReveals() {
+  document.querySelectorAll('.sig-item').forEach(el => {
+    el.classList.remove('in-view');
+    void el.offsetWidth; // reflow
+    el.classList.add('in-view');
+  });
+}
+
+// Initial signature reveals on load
+window.addEventListener('load', () => {
+  setTimeout(triggerSigReveals, 1600);
+});
+</script>
+
+</body>
+</html>
