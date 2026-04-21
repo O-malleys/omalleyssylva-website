@@ -2301,7 +2301,7 @@ body {
     <nav class="menu-nav">
       <button class="nav-tab active" onclick="show('welcome','reveal',this)">Welcome</button>
       <button class="nav-tab" onclick="show('menus','fade',this)">Menus</button>
-      <button class="nav-tab" onclick="show('cocktails','fade',this)">Cocktails</button>
+      <button class="nav-tab" onclick="show('cocktails','fade',this)" style="display:none;" aria-hidden="true">Cocktails</button>
       <button class="nav-tab" onclick="show('specials','fade',this)">Specials</button>
       <button class="nav-tab" onclick="show('events','fade',this)">Events</button>
       <button class="nav-tab" onclick="show('catering','fade',this)">Catering</button>
@@ -2362,7 +2362,7 @@ body {
             <p class="menu-card-title">Full Menu</p>
             <p class="menu-card-desc">Appetizers, sandwiches, entrées, wings, burgers, salads &amp; dessert</p>
           </a>
-          <a class="menu-card" href="#" onclick="show('cocktails','fade',document.querySelectorAll('.nav-tab')[2]); return false;">
+          <a class="menu-card" href="#" onclick="show('cocktails','fade',document.querySelectorAll('.nav-tab')[1]); return false;">
             <p class="menu-card-icon">Cocktails</p>
             <p class="menu-card-title">Cocktails</p>
             <p class="menu-card-desc">Pub classics and seasonal pours</p>
