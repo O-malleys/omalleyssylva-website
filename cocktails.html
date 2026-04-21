@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cocktails &amp; Shots · O'Malley's Pub &amp; Grill · Sylva NC</title>
+<meta name="description" content="Cocktails and shots at O'Malley's Pub &amp; Grill. Over 100 liquors and liqueurs — our bartenders can make anything you like.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --green:      #1a3d2b;
+  --green-mid:  #2a5c42;
+  --gold:       #b8960c;
+  --gold-light: #d4aa20;
+  --gold-pale:  #e8d080;
+  --crimson:    #c40401;
+  --parch:      #f8f4e8;
+  --parch-dark: #ede5cc;
+  --brown:      #4a3520;
+  --cream:      #fdfaf0;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html, body { overflow-x: hidden; }  /* hide the off-screen starting positions */
+
+body {
+  background: #0d1f15;
+  background-image: radial-gradient(ellipse at 50% 0%, #1a3d2b 0%, #0d1f15 60%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 40px;
+  font-family: 'EB Garamond', Georgia, serif;
+  color: var(--brown);
+}
+
+/* ── OUTER WRAPPER ── */
+.frame-outer {
+  width: 100%;
+  max-width: 920px;
+  position: relative;
+}
+
+/* ── PARCHMENT CARD ── */
+.parchment {
+  background: var(--parch);
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(184,150,12,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(196,4,1,0.04) 0%, transparent 50%);
+  border: 2px solid var(--gold);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.1) inset,
+    0 20px 60px rgba(0,0,0,0.5),
+    0 2px 0 rgba(184,150,12,0.3);
+  padding: 42px 48px 48px;
+  position: relative;
+  min-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+}
+.parchment::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(184,150,12,0.35);
+  pointer-events: none;
+}
+
+/* ── BACK LINK ── */
+.back-link {
+  position: absolute;
+  top: 24px;
+  left: 32px;
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  z-index: 10;
+}
+.back-link:hover { color: var(--crimson); }
+.back-link::before {
+  content: '← ';
+  margin-right: 4px;
+}
+
+/* ── LANDING SECTION (centered in viewport) ── */
+.landing {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.landing.fade-out {
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
+}
+
+.page-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  color: var(--crimson);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.page-title {
+  font-family: 'Cinzel', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.04em;
+}
+.page-sub {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.9rem;
+  color: var(--gold);
+  font-weight: 400;
+  margin-bottom: 1.8rem;
+}
+
+/* divider */
+.section-div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto 2rem;
+  max-width: 400px;
+  width: 100%;
+}
+.sdl { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.sdd { color: var(--gold); font-size: 0.8rem; }
+
+.intro {
+  font-style: italic;
+  color: var(--brown);
+  font-size: 1.15rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+}
+.intro strong {
+  font-weight: 600;
+  font-style: normal;
+  color: var(--green);
+}
+
+/* ── NEED IDEAS BUTTON ── */
+.reveal-btn {
+  display: inline-block;
+  background: var(--green);
+  color: var(--parch);
+  border: 2px solid var(--gold);
+  padding: 1.1rem 3rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 0 0 1px rgba(184,150,12,0.3) inset,
+    0 6px 16px rgba(0,0,0,0.15);
+  position: relative;
+}
+.reveal-btn::before,
+.reveal-btn::after {
+  content: '✦';
+  color: var(--gold);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.reveal-btn::before { left: 1rem; }
+.reveal-btn::after  { right: 1rem; }
+.reveal-btn:hover {
+  background: var(--green-mid);
+  border-color: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(184,150,12,0.5) inset,
+    0 10px 24px rgba(0,0,0,0.25);
+}
+.reveal-btn:hover::before,
+.reveal-btn:hover::after { opacity: 1; }
+
+/* ── COCKTAILS SECTION ── */
+.drinks-section {
+  display: none;
+  padding: 1rem 0;
+}
+.drinks-section.visible { display: block; }
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  color: var(--green);
+  text-align: center;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+/* ── DRINK GRID ── */
+.drink-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.4rem 2rem;
+  margin: 1.5rem auto 2.5rem;
+  max-width: 840px;
+}
+
+.drink-item {
+  text-align: left;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dotted rgba(184,150,12,0.4);
+  opacity: 0;
+  transform: translateX(var(--from, -120vw));
+  transition: opacity 0.7s ease-out, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.drinks-section.visible .drink-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.drink-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  color: var(--green);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+.drink-name.gold { color: var(--gold); }
+.drink-recipe {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.92rem;
+  color: var(--brown);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ── DOUBLE NOTE (bottom) ── */
+.double-note {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--crimson);
+  text-transform: uppercase;
+  margin: 1.5rem auto 0;
+  padding: 0.9rem 1.4rem;
+  border: 1px solid rgba(196,4,1,0.3);
+  background: rgba(196,4,1,0.04);
+  max-width: 460px;
+}
+
+/* ── BOTTOM NOTE ── */
+.bottom-note {
+  text-align: center;
+  font-style: italic;
+  color: var(--brown);
+  opacity: 0.75;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  max-width: 540px;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(184,150,12,0.3);
+}
+
+/* ── FOOTER ── */
+.page-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 680px) {
+  body { padding: 12px 8px 24px; }
+  .parchment { padding: 56px 20px 32px; }
+  .back-link { top: 20px; left: 20px; }
+  .page-title { font-size: 2.2rem; }
+  .page-sub { font-size: 1.5rem; }
+  .intro { font-size: 1.02rem; }
+  .reveal-btn { padding: 0.95rem 2rem; font-size: 0.75rem; letter-spacing: 0.22em; }
+  .drink-grid { gap: 1.2rem 1.4rem; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="frame-outer">
+  <div class="parchment">
+
+    <a class="back-link" href="index.html">Home</a>
+
+    <!-- ── LANDING (centered in viewport) ── -->
+    <section id="landing" class="landing">
+      <p class="page-eyebrow">O'Malley's Pub &amp; Grill</p>
+      <h1 class="page-title">Cocktails &amp; Shots</h1>
+      <p class="page-sub">we have what you want!</p>
+
+      <div class="section-div"><div class="sdl"></div><span class="sdd">✦</span><div class="sdl"></div></div>
+
+      <p class="intro">
+        Let our team of expert bartenders shake up something just for you tonight.
+        With <strong>over a hundred liquors and liqueurs</strong> behind the bar,
+        the possibilities are endless.
+      </p>
+
+      <button id="revealBtn" class="reveal-btn" type="button">Need Ideas?</button>
+    </section>
+
+    <!-- ── DRINKS ── -->
+    <section id="drinks" class="drinks-section">
+
+      <h2 class="section-title">Most Popular</h2>
+      <div class="section-div"><div class="sdl"></div><span class="sdd">✦</span><div class="sdl"></div></div>
+
+      <div class="drink-grid">
+
+        <div class="drink-item" style="--from:-120vw;">
+          <p class="drink-name">Jäger Bomb</p>
+          <p class="drink-recipe">Jägermeister, Red Bull</p>
+        </div>
+
+        <div class="drink-item" style="--from:120vw;">
+          <p class="drink-name gold">Long Island Iced Tea</p>
+          <p class="drink-recipe">Vodka, rum, gin, tequila, sour mix, Coke</p>
+        </div>
+
+        <div class="drink-item" style="--from:-120vw;">
+          <p class="drink-name">Irish Trashcan</p>
+          <p class="drink-recipe">Vodka, gin, rum, peach schnapps, blue curaçao, Red Bull</p>
+        </div>
+
+        <div class="drink-item" style="--from:120vw;">
+          <p class="drink-name gold">Lemon Drop</p>
+          <p class="drink-recipe">Citrus vodka, triple sec, sour mix</p>
+        </div>
+
+        <div class="drink-item" style="--from:-120vw;">
+          <p class="drink-name">Grape Nehi</p>
+          <p class="drink-recipe">Vanilla vodka, grape pucker, sour mix, Sprite</p>
+        </div>
+
+        <div class="drink-item" style="--from:120vw;">
+          <p class="drink-name gold">Pink Starburst</p>
+          <p class="drink-recipe">Vanilla vodka, watermelon pucker, sour mix</p>
+        </div>
+
+        <div class="drink-item" style="--from:-120vw;">
+          <p class="drink-name">Green Tea</p>
+          <p class="drink-recipe">Jameson, peach schnapps, sour mix</p>
+        </div>
+
+        <div class="drink-item" style="--from:120vw;">
+          <p class="drink-name gold">Margarita</p>
+          <p class="drink-recipe">Tequila, triple sec, lime, sour mix, salted rim</p>
+        </div>
+
+        <div class="drink-item" style="--from:-120vw;">
+          <p class="drink-name">Irish Car Bomb</p>
+          <p class="drink-recipe">Half glass of Guinness with a shot of Jameson and Baileys</p>
+        </div>
+
+        <div class="drink-item" style="--from:120vw;">
+          <p class="drink-name gold">Cherry Limeade</p>
+          <p class="drink-recipe">Cherry vodka, lemonade, Sprite, lime juice</p>
+        </div>
+
+        <div class="drink-item" style="--from:-120vw;">
+          <p class="drink-name">Orange Tea Shot</p>
+          <p class="drink-recipe">Jameson, orange peach schnapps, triple sec, sour — shaken &amp; strained</p>
+        </div>
+
+        <div class="drink-item" style="--from:120vw;">
+          <p class="drink-name gold">Bahama Mama</p>
+          <p class="drink-recipe">Coconut rum, white rum, orange juice, pineapple, grenadine</p>
+        </div>
+
+        <div class="drink-item" style="--from:-120vw;">
+          <p class="drink-name">Mini Beer</p>
+          <p class="drink-recipe">Licor 43 topped with cream</p>
+        </div>
+
+        <div class="drink-item" style="--from:120vw;">
+          <p class="drink-name gold">Vegas Bomb</p>
+          <p class="drink-recipe">Crown, peach schnapps, cranberry — shaken &amp; strained</p>
+        </div>
+
+        <div class="drink-item" style="--from:-120vw;">
+          <p class="drink-name">Kinky Hula Girl</p>
+          <p class="drink-recipe">Kinky Aloha, banana liqueur, pineapple juice, orange juice, grenadine</p>
+        </div>
+
+      </div>
+
+      <p class="bottom-note">
+        Don't see what you're looking for? Just ask.
+        Our bartenders know the classics &mdash; Old Fashioneds, Manhattans, Martinis, Mules,
+        margaritas, highballs, whatever's calling you tonight.
+      </p>
+
+      <p class="double-note">Make it a double · add $4</p>
+
+    </section>
+
+    <p class="page-footer">O'Malley's · Sylva, North Carolina · Est. 1995</p>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const btn      = document.getElementById('revealBtn');
+  const landing  = document.getElementById('landing');
+  const drinks   = document.getElementById('drinks');
+  if (!btn || !landing || !drinks) return;
+
+  btn.addEventListener('click', function () {
+    // 1. Fade out landing
+    landing.classList.add('fade-out');
+
+    // 2. After fade-out completes, display drinks and trigger slide-in
+    setTimeout(function () {
+      landing.style.display = 'none';
+      drinks.style.display = 'block';
+
+      // Force a layout so the transition kicks in on the next tick
+      void drinks.offsetWidth;
+
+      // Add staggered reveal via requestAnimationFrame
+      requestAnimationFrame(function () {
+        drinks.classList.add('visible');
+
+        // Staggered sweep: each drink waits a beat after the previous
+        const items = drinks.querySelectorAll('.drink-item');
+        items.forEach(function (el, i) {
+          el.style.transitionDelay = (i * 70) + 'ms';
+        });
+
+        // Smooth-scroll up so the drinks header is visible
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }, 650);
+  });
+})();
+</script>
+
+</body>
+</html>
