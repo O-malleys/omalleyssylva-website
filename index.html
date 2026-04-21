@@ -454,7 +454,7 @@ body {
 }
 .spec-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -466,6 +466,11 @@ body {
   position: relative;
   transition: all 0.2s;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.spec-card .spec-details {
+  margin-top: auto;
 }
 .spec-card:hover {
   border-color: var(--gold);
@@ -527,6 +532,151 @@ body {
   font-size: 0.85rem;
   opacity: 0.8;
   margin-top: 0.8rem;
+}
+
+/* ── COCKTAILS TAB ── */
+.cocktails-landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem 0 2rem;
+  min-height: 420px;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.cocktails-landing.fade-out {
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
+}
+.cocktails-tagline {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  color: var(--gold);
+  margin: 0.3rem 0 1.4rem;
+}
+.cocktails-intro {
+  font-style: italic;
+  color: var(--brown);
+  font-size: 1.08rem;
+  line-height: 1.7;
+  max-width: 560px;
+  margin: 0 auto 2rem;
+}
+.cocktails-intro strong {
+  font-weight: 600;
+  font-style: normal;
+  color: var(--green);
+}
+.reveal-btn {
+  display: inline-block;
+  background: var(--green);
+  color: var(--parch);
+  border: 2px solid var(--gold);
+  padding: 1rem 2.8rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 0 0 1px rgba(184,150,12,0.3) inset,
+    0 6px 16px rgba(0,0,0,0.15);
+  position: relative;
+}
+.reveal-btn::before,
+.reveal-btn::after {
+  content: '✦';
+  color: var(--gold);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.reveal-btn::before { left: 1rem; }
+.reveal-btn::after  { right: 1rem; }
+.reveal-btn:hover {
+  background: var(--green-mid);
+  border-color: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(184,150,12,0.5) inset,
+    0 10px 24px rgba(0,0,0,0.25);
+}
+.reveal-btn:hover::before,
+.reveal-btn:hover::after { opacity: 1; }
+
+.cocktails-list { display: none; }
+.cocktails-list.visible { display: block; }
+
+.drink-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem 1.8rem;
+  margin: 1.2rem auto 2rem;
+  max-width: 780px;
+}
+.drink-item {
+  text-align: left;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px dotted rgba(184,150,12,0.4);
+  opacity: 0;
+  transform: translateX(var(--from, -120vw));
+  transition: opacity 0.7s ease-out, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cocktails-list.visible .drink-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+.drink-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--green);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.drink-name.gold { color: var(--gold); }
+.drink-recipe {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  color: var(--brown);
+  line-height: 1.5;
+  font-style: italic;
+}
+.cocktails-bottom-note {
+  text-align: center;
+  font-style: italic;
+  color: var(--brown);
+  opacity: 0.75;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 1.5rem auto 0;
+  padding-top: 1.3rem;
+  border-top: 1px solid rgba(184,150,12,0.3);
+}
+.double-note {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--crimson);
+  text-transform: uppercase;
+  margin: 1.2rem auto 0;
+  padding: 0.85rem 1.3rem;
+  border: 1px solid rgba(196,4,1,0.3);
+  background: rgba(196,4,1,0.04);
+  max-width: 440px;
+}
+.cocktails-tab-overflow {
+  overflow-x: hidden;
 }
 
 /* ── EVENTS TAB ── */
@@ -2151,6 +2301,7 @@ body {
     <nav class="menu-nav">
       <button class="nav-tab active" onclick="show('welcome','reveal',this)">Welcome</button>
       <button class="nav-tab" onclick="show('menus','fade',this)">Menus</button>
+      <button class="nav-tab" onclick="show('cocktails','fade',this)">Cocktails</button>
       <button class="nav-tab" onclick="show('specials','fade',this)">Specials</button>
       <button class="nav-tab" onclick="show('events','fade',this)">Events</button>
       <button class="nav-tab" onclick="show('catering','fade',this)">Catering</button>
@@ -2178,7 +2329,7 @@ body {
             <p class="welcome-cta-label">Browse the Menu</p>
             <p class="welcome-cta-sub">Food · Cocktails · Late Night</p>
           </a>
-          <a class="welcome-cta" onclick="show('specials','fade',document.querySelectorAll('.nav-tab')[2]); return false;">
+          <a class="welcome-cta" onclick="show('specials','fade',document.querySelectorAll('.nav-tab')[3]); return false;">
             <p class="welcome-cta-label">Tonight's Specials</p>
             <p class="welcome-cta-sub">Every night has its thing</p>
           </a>
@@ -2211,18 +2362,112 @@ body {
             <p class="menu-card-title">Full Menu</p>
             <p class="menu-card-desc">Appetizers, sandwiches, entrées, wings, burgers, salads &amp; dessert</p>
           </a>
-          <div class="menu-card soon">
-            <span class="menu-card-badge">Soon</span>
+          <a class="menu-card" href="#" onclick="show('cocktails','fade',document.querySelectorAll('.nav-tab')[2]); return false;">
             <p class="menu-card-icon">Cocktails</p>
             <p class="menu-card-title">Cocktails</p>
             <p class="menu-card-desc">Pub classics and seasonal pours</p>
-          </div>
+          </a>
           <div class="menu-card soon">
             <span class="menu-card-badge">Soon</span>
             <p class="menu-card-icon">Late Night</p>
             <p class="menu-card-title">Late Night</p>
             <p class="menu-card-desc">Wings, apps &amp; burgers until close</p>
           </div>
+        </div>
+      </div>
+
+      <!-- COCKTAILS -->
+      <div id="cocktails" class="menu-section cocktails-tab-overflow">
+        <h2 class="section-title">Cocktails &amp; Shots</h2>
+        <div class="section-div"><div class="sdl"></div><span class="sdd">✦</span><div class="sdl"></div></div>
+
+        <!-- Landing (visible first) -->
+        <div id="cocktailsLanding" class="cocktails-landing">
+          <p class="cocktails-tagline">we have what you want!</p>
+          <p class="cocktails-intro">
+            Let our team of expert bartenders shake up something just for you tonight.
+            With <strong>over a hundred liquors and liqueurs</strong> behind the bar,
+            the possibilities are endless.
+          </p>
+          <button id="cocktailsRevealBtn" class="reveal-btn" type="button">Need Ideas?</button>
+        </div>
+
+        <!-- Drinks List (revealed on button click) -->
+        <div id="cocktailsList" class="cocktails-list">
+
+          <div class="drink-grid">
+
+            <div class="drink-item" style="--from:-120vw;">
+              <p class="drink-name">J&auml;ger Bomb</p>
+              <p class="drink-recipe">J&auml;germeister, Red Bull</p>
+            </div>
+            <div class="drink-item" style="--from:120vw;">
+              <p class="drink-name gold">Long Island Iced Tea</p>
+              <p class="drink-recipe">Vodka, rum, gin, tequila, sour mix, Coke</p>
+            </div>
+            <div class="drink-item" style="--from:-120vw;">
+              <p class="drink-name">Irish Trashcan</p>
+              <p class="drink-recipe">Vodka, gin, rum, peach schnapps, blue cura&ccedil;ao, Red Bull</p>
+            </div>
+            <div class="drink-item" style="--from:120vw;">
+              <p class="drink-name gold">Lemon Drop</p>
+              <p class="drink-recipe">Citrus vodka, triple sec, sour mix</p>
+            </div>
+            <div class="drink-item" style="--from:-120vw;">
+              <p class="drink-name">Grape Nehi</p>
+              <p class="drink-recipe">Vanilla vodka, grape pucker, sour mix, Sprite</p>
+            </div>
+            <div class="drink-item" style="--from:120vw;">
+              <p class="drink-name gold">Pink Starburst</p>
+              <p class="drink-recipe">Vanilla vodka, watermelon pucker, sour mix</p>
+            </div>
+            <div class="drink-item" style="--from:-120vw;">
+              <p class="drink-name">Green Tea</p>
+              <p class="drink-recipe">Jameson, peach schnapps, sour mix</p>
+            </div>
+            <div class="drink-item" style="--from:120vw;">
+              <p class="drink-name gold">Margarita</p>
+              <p class="drink-recipe">Tequila, triple sec, lime, sour mix, salted rim</p>
+            </div>
+            <div class="drink-item" style="--from:-120vw;">
+              <p class="drink-name">Irish Car Bomb</p>
+              <p class="drink-recipe">Half glass of Guinness with a shot of Jameson and Baileys</p>
+            </div>
+            <div class="drink-item" style="--from:120vw;">
+              <p class="drink-name gold">Cherry Limeade</p>
+              <p class="drink-recipe">Cherry vodka, lemonade, Sprite, lime juice</p>
+            </div>
+            <div class="drink-item" style="--from:-120vw;">
+              <p class="drink-name">Orange Tea Shot</p>
+              <p class="drink-recipe">Jameson, orange peach schnapps, triple sec, sour &mdash; shaken &amp; strained</p>
+            </div>
+            <div class="drink-item" style="--from:120vw;">
+              <p class="drink-name gold">Bahama Mama</p>
+              <p class="drink-recipe">Coconut rum, white rum, orange juice, pineapple, grenadine</p>
+            </div>
+            <div class="drink-item" style="--from:-120vw;">
+              <p class="drink-name">Mini Beer</p>
+              <p class="drink-recipe">Licor 43 topped with cream</p>
+            </div>
+            <div class="drink-item" style="--from:120vw;">
+              <p class="drink-name gold">Vegas Bomb</p>
+              <p class="drink-recipe">Crown, peach schnapps, cranberry &mdash; shaken &amp; strained</p>
+            </div>
+            <div class="drink-item" style="--from:-120vw;">
+              <p class="drink-name">Kinky Hula Girl</p>
+              <p class="drink-recipe">Kinky Aloha, banana liqueur, pineapple juice, orange juice, grenadine</p>
+            </div>
+
+          </div>
+
+          <p class="cocktails-bottom-note">
+            Don't see what you're looking for? Just ask.
+            Our bartenders know the classics &mdash; Old Fashioneds, Manhattans, Martinis, Mules,
+            margaritas, highballs, whatever's calling you tonight.
+          </p>
+
+          <p class="double-note">Make it a double &middot; add $4</p>
+
         </div>
       </div>
 
@@ -2785,20 +3030,32 @@ const NIGHTLY_SPECIALS = [
   {
     weekday: 3,
     day: 'Wednesday',
-    headline: 'Cherry Limeade Night',
-    details: '$7 Cherry Limeade<br>$3.50 White Claws<br>Salads &amp; Rice Bowls $12.99'
+    headline: 'Salad Night',
+    details: '$7 Cherry Limeade &middot; $3 Clawz<br><em>Featured Salads $12.99:</em><br>OnAClense &middot; Club &middot; NotATaco'
   },
   {
     weekday: 4,
     day: 'Thursday',
     headline: 'Wing Night',
-    details: '$2.50 Busch Light Drafts<br>$4.50 Wells'
+    details: '$2.50 Busch Light Drafts<br>$4.50 Wells<br>18 sauces. Half-dozen to 30-piece buckets.'
   },
   {
     weekday: 5,
     day: 'Friday',
-    headline: 'Weekend Kickoff',
-    details: '$5 Jager &middot; $6 Long Islands<br>Live Music &amp; Dancing'
+    headline: 'Rice Bowl Night',
+    details: '$5 Jager &middot; $6 Long Islands<br><em>Rice Bowls $12.99</em> (cornbread or warm wrap):<br>WhoForgotTheMac &middot; DontBeAJerk &middot; LocoMoco'
+  },
+  {
+    weekday: 6,
+    day: 'Saturday',
+    headline: 'Sammy Saturday',
+    details: '$1 off Domestics<br><em>Featured Sammies $12.99:</em><br>AlmostAPattyMelt &middot; HotVeg &middot; LadyO'
+  },
+  {
+    weekday: 0,
+    day: 'Sunday',
+    headline: 'Breakfast 4 Dinner',
+    details: '$6 Bloody Marys &amp; Mimosas<br><em>Featured Plates $12.99:</em><br>The Burrito &middot; Chicken &amp; Waffles &middot; KeepItSimple'
   }
 ];
 
@@ -3491,11 +3748,49 @@ function show(id, type, btn) {
     const next = document.getElementById(id);
     next.classList.add(type === 'reveal' ? 'reveal' : 'active');
     cur = id;
+    // Reset cocktails landing state whenever the tab becomes visible
+    if (id === 'cocktails') resetCocktailsTab();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 280);
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
 }
+
+/* ─────────── COCKTAILS REVEAL ─────────── */
+function resetCocktailsTab() {
+  const landing = document.getElementById('cocktailsLanding');
+  const list    = document.getElementById('cocktailsList');
+  if (!landing || !list) return;
+  landing.classList.remove('fade-out');
+  landing.style.display = '';
+  list.classList.remove('visible');
+  list.style.display = '';
+  // Reset transition delays so the animation plays cleanly next time
+  list.querySelectorAll('.drink-item').forEach(el => { el.style.transitionDelay = ''; });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const btn     = document.getElementById('cocktailsRevealBtn');
+  const landing = document.getElementById('cocktailsLanding');
+  const list    = document.getElementById('cocktailsList');
+  if (!btn || !landing || !list) return;
+
+  btn.addEventListener('click', function () {
+    landing.classList.add('fade-out');
+    setTimeout(function () {
+      landing.style.display = 'none';
+      list.style.display = 'block';
+      void list.offsetWidth;   // force reflow
+      requestAnimationFrame(function () {
+        list.classList.add('visible');
+        const items = list.querySelectorAll('.drink-item');
+        items.forEach(function (el, i) {
+          el.style.transitionDelay = (i * 70) + 'ms';
+        });
+      });
+    }, 500);
+  });
+});
 </script>
 </body>
 </html>
