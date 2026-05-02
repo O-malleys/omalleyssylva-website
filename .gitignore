@@ -1,0 +1,23 @@
+# Environment / secrets — NEVER commit these
+.env
+.env.*
+!.env.example
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Node / build artifacts (in case tooling gets added later)
+node_modules/
+dist/
+build/
+*.log
+npm-debug.log*
+
+# Local working files
+*.bak
+*.tmp

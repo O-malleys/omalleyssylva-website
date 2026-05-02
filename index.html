@@ -533,6 +533,38 @@ body {
   opacity: 0.8;
   margin-top: 0.8rem;
 }
+.spec-season {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  margin: 0 0 0.6rem;
+  font-weight: 600;
+}
+.spec-soup {
+  margin: 0.9rem -1rem -1.3rem;
+  padding: 0.5rem 1rem 0.55rem;
+  background: rgba(184,150,12,0.08);
+  border-top: 1px solid rgba(184,150,12,0.3);
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--brown);
+  line-height: 1.3;
+}
+.spec-soup-label {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-style: normal;
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  color: var(--crimson);
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+  font-weight: 600;
+}
 
 /* ── COCKTAILS TAB ── */
 #cocktails .section-title {
@@ -704,6 +736,61 @@ body {
   align-items: flex-start;
 }
 .event-item:last-child { border-bottom: none; }
+
+/* Featured one-time events — gentle entrance + breathing glow */
+.event-item.featured {
+  position: relative;
+  padding: 1.2rem 1.2rem;
+  margin: 0.4rem -0.6rem;
+  background: linear-gradient(90deg, rgba(196,4,1,0.04) 0%, rgba(184,150,12,0.06) 50%, rgba(196,4,1,0.04) 100%);
+  border-left: 3px solid var(--crimson);
+  border-bottom: 1px solid rgba(184,150,12,0.25);
+  animation: featuredReveal 1.2s ease 0.3s both, featuredGlow 4s ease-in-out 1.5s infinite;
+}
+.event-item.featured .event-date {
+  border-color: var(--crimson);
+  background: var(--cream);
+  box-shadow: 0 0 0 1px rgba(196,4,1,0.2);
+}
+.event-item.featured .event-date-month {
+  color: var(--crimson);
+  font-weight: 700;
+}
+.event-item.featured .event-date-day {
+  color: var(--crimson);
+}
+.event-item.featured .event-title {
+  position: relative;
+  display: inline-block;
+}
+.event-item.featured .event-title::after {
+  content: '\2605';
+  color: var(--gold);
+  font-size: 0.7em;
+  margin-left: 0.5em;
+  vertical-align: super;
+  opacity: 0.8;
+  animation: featuredStarPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes featuredReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes featuredGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(196,4,1,0); }
+  50%      { box-shadow: 0 0 18px 0 rgba(196,4,1,0.12); }
+}
+@keyframes featuredStarPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.15); }
+}
 .event-date {
   flex-shrink: 0;
   width: 80px;
@@ -2479,6 +2566,7 @@ body {
         <h2 class="section-title">Nightly Specials</h2>
         <div class="section-div"><div class="sdl"></div><span class="sdd">✦</span><div class="sdl"></div></div>
 
+        <p class="spec-season">Summer &rsquo;26 &middot; May 1 &mdash; July 31</p>
         <p class="spec-intro">Every night of the week has its thing. Here's what's good when.</p>
 
         <div id="specialsGrid" class="spec-grid">
@@ -3022,43 +3110,50 @@ const NIGHTLY_SPECIALS = [
     weekday: 1,
     day: 'Monday',
     headline: 'Half Price Apps',
-    details: '$3 Corona &amp; Modelo<br>$5 Cuervo Shots'
+    details: '$3 Corona &middot; Modelo<br>$6 Margarita',
+    soup: 'Chicken Jalape&ntilde;o Popper'
   },
   {
     weekday: 2,
     day: 'Tuesday',
-    headline: '69&cent; Boneless',
-    details: '$4 Bold Rock Draft<br>$5 Fireball'
+    headline: 'Take-Out Tuesday',
+    details: '<em>To-Go Wings $5/lb</em><br>$4 Bold Rock &middot; $4 Fireball',
+    soup: 'Tomato'
   },
   {
     weekday: 3,
     day: 'Wednesday',
-    headline: 'Salad Night',
-    details: '$7 Cherry Limeade &middot; $3 Clawz<br><em>Featured Salads $12.99:</em><br>OnAClense &middot; Club &middot; NotATaco'
+    headline: 'Weiner Wednesday',
+    details: '<em>$14.99 &mdash; served with chips:</em><br>O\u2019s Dog &middot; MorningDog &middot; IsItASandwich<br>$3.50 White Claws &middot; $6 White Teas',
+    soup: 'Tuscan Bean &amp; Sausage'
   },
   {
     weekday: 4,
     day: 'Thursday',
     headline: 'Wing Night',
-    details: '$2.50 Busch Light Drafts<br>$4.50 Wells<br>18 sauces. Half-dozen to 30-piece buckets.'
+    details: '$5 Well Shots<br>18 sauces. Half-dozen to 30-piece buckets.',
+    soup: 'Baked Potato'
   },
   {
     weekday: 5,
     day: 'Friday',
-    headline: 'Rice Bowl Night',
-    details: '$5 Jager &middot; $6 Long Islands<br><em>Rice Bowls $12.99</em> (cornbread or warm wrap):<br>WhoForgotTheMac &middot; DontBeAJerk &middot; LocoMoco'
+    headline: 'Burger Friday',
+    details: '<em>$14.99 &mdash; served with fries:</em><br>The Uncrustable &middot; InQueso Emergency &middot; Bangin Smash<br>$5 Jager Bombs &middot; $5 Long Island Singles',
+    soup: 'Chicken Tortilla'
   },
   {
     weekday: 6,
     day: 'Saturday',
-    headline: 'Sammy Saturday',
-    details: '$1 off Domestics<br><em>Featured Sammies $12.99:</em><br>AlmostAPattyMelt &middot; HotVeg &middot; LadyO'
+    headline: 'Steak Sammy Saturday',
+    details: '<em>$14.99 &mdash; served with pierogies:</em><br>SteakHouse Sammy &middot; Something Light &middot; The Staple<br>$1 off Domestic Drafts &middot; $6 Scooby Snack',
+    soup: 'French Onion'
   },
   {
     weekday: 0,
     day: 'Sunday',
-    headline: 'Breakfast 4 Dinner',
-    details: '$6 Bloody Marys &amp; Mimosas<br><em>Featured Plates $12.99:</em><br>The Burrito &middot; Chicken &amp; Waffles &middot; KeepItSimple'
+    headline: 'Skins Fully Loaded',
+    details: '<em>$14.99 &mdash; served with sour cream &amp; ranch:</em><br>Speedster Steak Dinner &middot; Chicken Parm &middot; Bacon Mac<br>$6 Bloody Mary &middot; $6 Mimosa',
+    soup: 'All Soups Today'
   }
 ];
 
@@ -3070,6 +3165,7 @@ function renderSpecials() {
   grid.innerHTML = NIGHTLY_SPECIALS.map(s => {
     const isToday = s.weekday === todayWeekday;
     const todayFlag = isToday ? '<span class="spec-today-flag">Tonight</span>' : '';
+    const soupHtml = s.soup ? `<p class="spec-soup"><span class="spec-soup-label">Soup</span>${s.soup}</p>` : '';
     return `
       <div class="spec-card ${isToday ? 'today' : ''}">
         ${todayFlag}
@@ -3077,6 +3173,7 @@ function renderSpecials() {
         <h3 class="spec-headline">${s.headline}</h3>
         <div class="spec-divider"></div>
         <p class="spec-details">${s.details}</p>
+        ${soupHtml}
       </div>
     `;
   }).join('');
@@ -3087,8 +3184,7 @@ function renderSpecials() {
 // ONE-TIME EVENTS — edit these as events come up
 // Format: { date: 'YYYY-MM-DD', title: '...', desc: '...' }
 const EVENTS = [
-  { date: '2026-05-10', title: 'Dancing with Harrison', desc: 'Harrison from John C. Campbell Folk School leads a night of traditional dance. All skill levels welcome.' },
-  { date: '2026-05-11', title: "Mother's Day Contra Dance", desc: 'Live two-piece band, contra dancing, and a Mother\u2019s Day tradition at O\u2019Malley\u2019s.' }
+  { date: '2026-05-10', title: "Mother's Day Dance", desc: 'Live music by Knob Creek with dance caller Harrison Keely. Social set, square, and line dancing &mdash; no partner, no experience, no problem. Make memories and new friends on the dance floor.' }
 ];
 
 // RECURRING WEEKLY EVENTS — by day of week (0=Sun, 1=Mon, ... 4=Thu, 6=Sat)
@@ -3129,13 +3225,16 @@ function renderWeekView() {
   today.setHours(0, 0, 0, 0);
   const end = new Date(today);
   end.setDate(end.getDate() + 7);
+  // Special one-time events show up to 30 days out so they get promoted in advance
+  const specialEnd = new Date(today);
+  specialEnd.setDate(specialEnd.getDate() + 30);
 
   const items = [];
 
-  // Collect one-time events in window
+  // Collect one-time events in window (30-day lookahead)
   EVENTS.forEach(ev => {
     const dt = parseDate(ev.date);
-    if (dt >= today && dt < end) {
+    if (dt >= today && dt < specialEnd) {
       items.push({ dt, type: 'special', title: ev.title, desc: ev.desc });
     }
   });
@@ -3161,9 +3260,10 @@ function renderWeekView() {
 
   container.innerHTML = items.map(item => {
     const monthLabel = item.type === 'recurring' ? DAY_ABBR[item.dt.getDay()] : MONTH_ABBR[item.dt.getMonth()];
-    const dayLabel = item.type === 'recurring' ? '★' : item.dt.getDate();
+    const dayLabel = item.type === 'recurring' ? '\u2605' : item.dt.getDate();
+    const featuredClass = item.type === 'special' ? ' featured' : '';
     return `
-      <div class="event-item">
+      <div class="event-item${featuredClass}">
         <div class="event-date">
           <p class="event-date-month">${monthLabel}</p>
           <p class="event-date-day">${dayLabel}</p>
